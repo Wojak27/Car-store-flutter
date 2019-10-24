@@ -3,6 +3,8 @@ import '../objects/car_item_object.dart';
 import 'car_detail_screen.dart';
 import 'order_screen.dart';
 import 'login_screen.dart';
+import 'package:flutter/cupertino.dart';
+import '../constants/page_routs.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -19,6 +21,7 @@ class _MyHomePageState extends State<MyHomePage>
   TabController _tabController;
   PageController _pageController;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isSearching = false;
 
   List<CarItemObject> cars = [
@@ -82,10 +85,8 @@ class _MyHomePageState extends State<MyHomePage>
       },
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => CarDetailScreen(car: cars[selectedPage])));
+          Navigator.push(context,
+              SlideRightRoute(page: CarDetailScreen(car: cars[selectedPage])));
         },
         child: Stack(
           children: <Widget>[
@@ -114,8 +115,21 @@ class _MyHomePageState extends State<MyHomePage>
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
-                        Text("169.900 kr",
+                        Text(cars[index].carPrice,
                             style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    left: 20,
+                    child: Column(
+                      children: <Widget>[
+                        Text(cars[index].carName,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                   )
@@ -152,9 +166,15 @@ class _MyHomePageState extends State<MyHomePage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
-                    child: Icon(Icons.menu, size: 30),
+                  Hero(
+                    tag: "drawer_button",
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25.0),
+                      child: IconButton(
+                          icon: Icon(Icons.menu, size: 30),
+                          onPressed: () =>
+                              _scaffoldKey.currentState.openDrawer()),
+                    ),
                   ),
                   Padding(
                       padding: const EdgeInsets.only(right: 25.0),
@@ -166,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage>
                           onPressed: () => _searchPressed()))
                 ],
               ),
-              Padding(
+              Container(
                 padding: const EdgeInsets.all(25.0),
                 child: Text(
                   "Best cars",
@@ -269,7 +289,7 @@ class _MyHomePageState extends State<MyHomePage>
                 children: <Widget>[
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(left:20.0),
+                      padding: const EdgeInsets.only(left: 20.0),
                       child: TextField(
                         onSubmitted: (String text) {
                           if (text.length == 0) {
@@ -298,13 +318,13 @@ class _MyHomePageState extends State<MyHomePage>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => CarDetailScreen(car: cars[selectedPage])));
+                          builder: (_) =>
+                              CarDetailScreen(car: cars[selectedPage])));
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0,top: 20),
+                  padding: const EdgeInsets.only(left: 15.0, top: 20),
                   child: Container(
-                      width: double.infinity,
-                      child: Text("Sugestion 1")),
+                      width: double.infinity, child: Text("Sugestion 1")),
                 ),
               ),
               InkWell(
@@ -312,26 +332,27 @@ class _MyHomePageState extends State<MyHomePage>
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => CarDetailScreen(car: cars[selectedPage])));
+                          builder: (_) =>
+                              CarDetailScreen(car: cars[selectedPage])));
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0,top: 20),
+                  padding: const EdgeInsets.only(left: 15.0, top: 20),
                   child: Container(
-                      width: double.infinity,
-                      child: Text("Sugestion 2")),
+                      width: double.infinity, child: Text("Sugestion 2")),
                 ),
-              ),InkWell(
+              ),
+              InkWell(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => CarDetailScreen(car: cars[selectedPage])));
+                          builder: (_) =>
+                              CarDetailScreen(car: cars[selectedPage])));
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0,top: 20),
+                  padding: const EdgeInsets.only(left: 15.0, top: 20),
                   child: Container(
-                      width: double.infinity,
-                      child: Text("Sugestion 3")),
+                      width: double.infinity, child: Text("Sugestion 3")),
                 ),
               ),
             ],
@@ -341,6 +362,7 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         body: Container(
           width: double.infinity,
           child: SafeArea(
@@ -360,29 +382,78 @@ class _MyHomePageState extends State<MyHomePage>
           child: Container(
             decoration: BoxDecoration(color: Colors.blue),
             child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "You are logged in as",
-                    style: TextStyle(color: Colors.white),
+                child: Stack(
+              children: <Widget>[
+                Hero(
+                  tag: "drawer_button",
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 25.0),
+                    child: IconButton(
+                        icon: Icon(Icons.arrow_back, size: 30),
+                        onPressed: () => Navigator.of(context).pop()),
                   ),
-                  InkWell(
-                    onTap: () => _logOut(),
-                    child: Container(
-                      decoration: BoxDecoration(color: Colors.cyanAccent),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Center(
-                            child: Text("Logout",
-                                style: TextStyle(color: Colors.grey))),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+
+                    Center(
+                      child: Container(
+                        width: double.infinity,
+                        height: 150,
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned(bottom: 50,child: Container(color: Colors.greenAccent,width: 400,height: 150,),),
+                            Center(
+                              child: Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: new DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        'https://adayinthelifeimages.com/wp-content/uploads/2016/05/brisbane-headshots-commercial-photography-09.jpg',
+
+                                      ),)
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+
+                    ),
+                    Column(children: <Widget>[Text("Name surname"),Text("Name surname")]),
+                    InkWell(
+                      onTap: () => _logOut(),
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.lightBlue),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Center(
+                              child: Text("View profile",
+                                  style: TextStyle(color: Colors.grey))),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                    InkWell(
+                      onTap: () => _logOut(),
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.cyanAccent),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Center(
+                              child: Text("Logout",
+                                  style: TextStyle(color: Colors.grey))),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
           ),
         ) // trailing comma makes auto-formatting nicer for build methods.
         );
