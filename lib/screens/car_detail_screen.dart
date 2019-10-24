@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
+import 'order_screen.dart';
+import '../objects/car_item_object.dart';
+import 'home_page.dart';
 
 class CarDetailScreen extends StatefulWidget {
   CarItemObject car;
@@ -11,6 +14,10 @@ class CarDetailScreen extends StatefulWidget {
 }
 
 class CarDetailScreenState extends State<CarDetailScreen> {
+
+  _makeOrder(){
+    Navigator.push(context, MaterialPageRoute(builder: (_)=> OrderScreen()));
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -26,7 +33,9 @@ class CarDetailScreenState extends State<CarDetailScreen> {
                   child: Container(
                     height: 500,
                     width: double.infinity,
-                    color: Colors.blueAccent,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [Colors.blue,Colors.grey], stops: [0,1]),
+                    ),
                     child: Hero(
                         tag: widget.car.imageName,
                         child: Stack(children: <Widget>[
@@ -49,7 +58,7 @@ class CarDetailScreenState extends State<CarDetailScreen> {
                   fillColor: Colors.black,
                   shape: CircleBorder(),
                   elevation: 2.0,
-                  onPressed: () => print("Add to cart"),
+                  onPressed: () => _makeOrder(),
                 ),
                 )
               ],

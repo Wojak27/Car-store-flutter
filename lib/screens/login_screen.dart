@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'siugn_up_screen.dart';
 import '../main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'home_page.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       print("Submit");
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>MyHomePage(title: "Car shop",)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>MyHomePage(title: "Car shop",)));
     }
   }
   _signIn(){
