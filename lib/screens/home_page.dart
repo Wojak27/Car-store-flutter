@@ -145,12 +145,9 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-          width: double.infinity,
-          child: ListView(
+  _mainWidgetSwitcher(bool isSearching) {
+    return !isSearching
+        ? Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,139 +166,193 @@ class _MyHomePageState extends State<MyHomePage>
                           onPressed: () => _searchPressed()))
                 ],
               ),
-              AnimatedSwitcher(
-                duration: Duration(milliseconds: 400),
-                child: !isSearching
-                    ? Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(25.0),
-                            child: Text(
-                              "Best cars",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 20),
-                            ),
-                          ),
-                          TabBar(
-                            controller: _tabController,
-                            indicatorColor: Colors.transparent,
-                            labelColor: Colors.black,
-                            unselectedLabelColor: Colors.grey.withOpacity(0.6),
-                            labelPadding: EdgeInsets.symmetric(horizontal: 35),
-                            isScrollable: true,
-                            tabs: <Widget>[
-                              Tab(
-                                child: Text(
-                                  "Sedan",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "Hatchback",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "MPV",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "SUV",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "Crossover",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "Coupe",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Tab(
-                                child: Text(
-                                  "Convertible",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            height: 450,
-                            width: double.infinity,
-                            child: PageView.builder(
-                              controller: _pageController,
-                              onPageChanged: (int index) {
-                                setState(() {
-                                  this.selectedPage = index;
-                                });
-                              },
-                              itemCount: cars.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return _carSelector(index);
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("Description:",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(cars[selectedPage].description),
-                          )
-                        ],
-                      )
-                    : Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TextField(
-                              onSubmitted: (String text) {
-                                if (text.length == 0) {
-                                  _searchPressed();
-                                }
-                              },
-                              autofocus: true,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Look for cars'),
-                            ),
-                          ),
-                          Text("Sugestion 1"),
-                          Text("Sugestion 1"),
-                          Text("Sugestion 1"),
-                          Text("Sugestion 1"),
-                        ],
-                      ),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Text(
+                  "Best cars",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                ),
+              ),
+              TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.transparent,
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey.withOpacity(0.6),
+                labelPadding: EdgeInsets.symmetric(horizontal: 35),
+                isScrollable: true,
+                tabs: <Widget>[
+                  Tab(
+                    child: Text(
+                      "Sedan",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Hatchback",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "MPV",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "SUV",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Crossover",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Coupe",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Convertible",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 450,
+                width: double.infinity,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (int index) {
+                    setState(() {
+                      this.selectedPage = index;
+                    });
+                  },
+                  itemCount: cars.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _carSelector(index);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Description:",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(cars[selectedPage].description),
               )
             ],
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left:20.0),
+                      child: TextField(
+                        onSubmitted: (String text) {
+                          if (text.length == 0) {
+                            _searchPressed();
+                          }
+                        },
+                        autofocus: true,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Look for cars'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(right: 25.0),
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.search,
+                            size: 30,
+                          ),
+                          onPressed: () => _searchPressed())),
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => CarDetailScreen(car: cars[selectedPage])));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0,top: 20),
+                  child: Container(
+                      width: double.infinity,
+                      child: Text("Sugestion 1")),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => CarDetailScreen(car: cars[selectedPage])));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0,top: 20),
+                  child: Container(
+                      width: double.infinity,
+                      child: Text("Sugestion 2")),
+                ),
+              ),InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => CarDetailScreen(car: cars[selectedPage])));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15.0,top: 20),
+                  child: Container(
+                      width: double.infinity,
+                      child: Text("Sugestion 3")),
+                ),
+              ),
+            ],
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Container(
+          width: double.infinity,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  AnimatedSwitcher(
+                      duration: Duration(milliseconds: 300),
+                      child: _mainWidgetSwitcher(isSearching))
+                ],
+              ),
+            ),
           ),
         ), // This
         drawer: Drawer(
