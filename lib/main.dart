@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "screens/car_detail_screen.dart";
+import 'screens/login_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Generic Car Shop'),
+      home: LoginScreen(),
     );
   }
 }
@@ -32,13 +33,15 @@ class CarItemObject {
   int carYear;
   int carPower;
   String description;
+  Color backgroudColor;
 
   CarItemObject({
     this.imageName,
     this.carName,
     this.carPower = 100,
     this.carYear = 2019,
-    this.description = ""
+    this.description = "",
+    this.backgroudColor = Colors.green
   });
 }
 
@@ -50,13 +53,16 @@ class _MyHomePageState extends State<MyHomePage>
   List<CarItemObject> cars = [
     CarItemObject(
         imageName: "assets/images/bmw_sedan.png", carName: "BMW sedan",
-    description: "BMW 8 Series. The BMW 8 Series is a range of grand tourers produced by BMW. The 8 Series was introduced in 1990 under the E31 model code and was only available as a two-door coupé. ... The G15 8 Series introduces an inline-six diesel engine, and a high-performance M8 model is also expected to be launched in the future."),
+    description: "BMW 8 Series. The BMW 8 Series is a range of grand tourers produced by BMW. The 8 Series was introduced in 1990 under the E31 model code and was only available as a two-door coupé. ... The G15 8 Series introduces an inline-six diesel engine, and a high-performance M8 model is also expected to be launched in the future."
+    , backgroudColor: Colors.black),
     CarItemObject(
         imageName: "assets/images/fiat_sedan.png", carName: "Fiat sedan",
-        description: "The Fiat Tipo sedan is 4532 mm long, 1497 mm tall and 1792 mm wide with a wheelbase of 2638 mm and a five-seat passenger compartment with a 520-litre trunk. The hatchback has the same wheelbase but the bodywork is 4368 mm long, 1495 mm tall and 1792 mm wide. The trunk has a capacity of 440 litres."),
+        description: "The Fiat Tipo sedan is 4532 mm long, 1497 mm tall and 1792 mm wide with a wheelbase of 2638 mm and a five-seat passenger compartment with a 520-litre trunk. The hatchback has the same wheelbase but the bodywork is 4368 mm long, 1495 mm tall and 1792 mm wide. The trunk has a capacity of 440 litres."
+        , backgroudColor: Colors.red),
     CarItemObject(
         imageName: "assets/images/honda_sedan.png", carName: "Honda sedan",
-        description: "Honda Civic. ... EPA guidelines for vehicle size class stipulate a car having combined passenger and cargo room of 110 to 119.9 cubic feet (3,110 to 3,400 L) is considered a mid-size car, and as such the tenth generation Civic sedan is technically a small-end mid-size car, although it still competes in the compact class.")
+        description: "Honda Civic. ... EPA guidelines for vehicle size class stipulate a car having combined passenger and cargo room of 110 to 119.9 cubic feet (3,110 to 3,400 L) is considered a mid-size car, and as such the tenth generation Civic sedan is technically a small-end mid-size car, although it still competes in the compact class."
+        , backgroudColor: Colors.purple)
   ];
 
   @override
@@ -144,111 +150,114 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0),
-                child: Icon(Icons.menu, size: 30),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 25.0),
-                child: Icon(
-                  Icons.shopping_cart,
-                  size: 30,
+      body: Container(
+        width: double.infinity,
+        child: ListView(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 25.0),
+                  child: Icon(Icons.menu, size: 30),
                 ),
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Text(
-              "Best cars",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                Padding(
+                  padding: const EdgeInsets.only(right: 25.0),
+                  child: Icon(
+                    Icons.shopping_cart,
+                    size: 30,
+                  ),
+                )
+              ],
             ),
-          ),
-          TabBar(
-            controller: _tabController,
-            indicatorColor: Colors.transparent,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey.withOpacity(0.6),
-            labelPadding: EdgeInsets.symmetric(horizontal: 35),
-            isScrollable: true,
-            tabs: <Widget>[
-              Tab(
-                child: Text(
-                  "Sedan",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Text(
+                "Best cars",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
-              Tab(
-                child: Text(
-                  "Hatchback",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "MPV",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "SUV",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Crossover",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Coupe",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Convertible",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            height: 450,
-            width: double.infinity,
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (int index) {
-                setState(() {
-                  this.selectedPage = index;
-                });
-              },
-              itemCount: cars.length,
-              itemBuilder: (BuildContext context, int index) {
-                return _carSelector(index);
-              },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Description:", style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(cars[selectedPage].description),
-          )
-        ],
+            TabBar(
+              controller: _tabController,
+              indicatorColor: Colors.transparent,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey.withOpacity(0.6),
+              labelPadding: EdgeInsets.symmetric(horizontal: 35),
+              isScrollable: true,
+              tabs: <Widget>[
+                Tab(
+                  child: Text(
+                    "Sedan",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "Hatchback",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "MPV",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "SUV",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "Crossover",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "Coupe",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "Convertible",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: 450,
+              width: double.infinity,
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (int index) {
+                  setState(() {
+                    this.selectedPage = index;
+                  });
+                },
+                itemCount: cars.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _carSelector(index);
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Description:", style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(cars[selectedPage].description),
+            )
+          ],
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

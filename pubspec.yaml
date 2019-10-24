@@ -20,6 +20,15 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Add the dependency for the Firebase Core Flutter SDK
+  firebase_core: ^0.4.0+9
+
+
+  # Add the dependencies for any other Firebase products you want to use in your app
+  # For example, to use Firebase Authentication and Cloud Firestore
+  firebase_auth: ^0.14.0+5
+  cloud_firestore: ^0.12.9+5
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -27,6 +36,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -45,6 +55,7 @@ flutter:
    - assets/images/bmw_sedan.png
    - assets/images/honda_sedan.png
    - assets/images/fiat_sedan.png
+   - assets/images/app_logo.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
