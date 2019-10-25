@@ -1,17 +1,5 @@
-# car_shop_application
+## Car store 
 
-A new Flutter application.
+An online store app UI for cars made using Flutter
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Car-store-flutter
+![Demo](https://github.com/Wojak27/Car-store-flutter/blob/master/72695384_389398461936514_4294503632805560320_n.gif)
