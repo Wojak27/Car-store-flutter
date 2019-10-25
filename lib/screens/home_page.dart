@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage>
       child: GestureDetector(
         onTap: () {
           Navigator.push(context,
-              SlideRightRoute(page: CarDetailScreen(car: cars[selectedPage])));
+              FadeRoute(page: CarDetailScreen(car: cars[selectedPage])));
         },
         child: Stack(
           children: <Widget>[
@@ -99,12 +99,15 @@ class _MyHomePageState extends State<MyHomePage>
                   borderRadius: BorderRadius.circular(25)),
               child: Stack(
                 children: <Widget>[
-                  Hero(
+                  Center(
+                    child: Hero(
                       tag: cars[index].imageName,
-                      child: Center(
-                          child: Image(
-                              fit: BoxFit.cover,
-                              image: AssetImage(cars[index].imageName)))),
+                      child: Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage(cars[index].imageName),
+                      ),
+                    ),
+                  ),
                   Positioned(
                     top: 20,
                     right: 20,
@@ -380,7 +383,12 @@ class _MyHomePageState extends State<MyHomePage>
         drawer: Drawer(
           elevation: 10,
           child: Container(
-            decoration: BoxDecoration(color: Colors.blue),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.lightBlue, Colors.orange],
+                    stops: [0, 1],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter)),
             child: SafeArea(
                 child: Stack(
               children: <Widget>[
@@ -397,35 +405,81 @@ class _MyHomePageState extends State<MyHomePage>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-
                     Center(
-                      child: Container(
-                        width: double.infinity,
-                        height: 150,
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned(bottom: 50,child: Container(color: Colors.greenAccent,width: 400,height: 150,),),
-                            Center(
-                              child: Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: new DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        'https://adayinthelifeimages.com/wp-content/uploads/2016/05/brisbane-headshots-commercial-photography-09.jpg',
-
-                                      ),)
-                                ),
-                              ),
+                        child: Container(
+                      width: double.infinity,
+                      height: 150,
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            bottom: 50,
+                            child: Container(
+                              color: Colors.greenAccent,
+                              width: 400,
+                              height: 150,
                             ),
-                          ],
-                        ),
-                      )
-
+                          ),
+                          Center(
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: new DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      'https://adayinthelifeimages.com/wp-content/uploads/2016/05/brisbane-headshots-commercial-photography-09.jpg',
+                                    ),
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                    Center(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Adam Sandler"),
+                            Text("I am happy")
+                          ]),
                     ),
-                    Column(children: <Widget>[Text("Name surname"),Text("Name surname")]),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: InkWell(
+                        onTap: () => _logOut(),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Center(
+                                child: Text("My offering",
+                                    style: TextStyle(color: Colors.grey))),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: InkWell(
+                        onTap: () => _logOut(),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Center(
+                                child: Text("My offering",
+                                    style: TextStyle(color: Colors.grey))),
+                          ),
+                        ),
+                      ),
+                    ),
                     InkWell(
                       onTap: () => _logOut(),
                       child: Container(

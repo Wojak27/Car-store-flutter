@@ -21,17 +21,14 @@ dependencies:
     sdk: flutter
 
   # Add the dependency for the Firebase Core Flutter SDK
-  firebase_core: ^0.4.0+9
+  #firebase_core: ^0.4.0+9
   loading_indicator: ^1.1.0
 
-  camera:
-  path_provider:
-  path:
 
   # Add the dependencies for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
-  firebase_auth: ^0.14.0+5
-  cloud_firestore: ^0.12.9+5
+  #firebase_auth: ^0.14.0+5
+  #cloud_firestore: ^0.12.9+5
   #stripe_payment: ^1.0.4
 
   # The following adds the Cupertino Icons font to your application.
