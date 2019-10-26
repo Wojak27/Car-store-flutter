@@ -5,6 +5,7 @@ import 'order_screen.dart';
 import 'login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import '../constants/page_routs.dart';
+import 'calendar_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -447,7 +448,9 @@ class _MyHomePageState extends State<MyHomePage>
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: InkWell(
-                        onTap: () => _logOut(),
+                        onTap: () {
+                          _switchToCalendar();
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -456,7 +459,7 @@ class _MyHomePageState extends State<MyHomePage>
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Center(
-                                child: Text("My offering",
+                                child: Text("My calendar",
                                     style: TextStyle(color: Colors.grey))),
                           ),
                         ),
@@ -511,5 +514,12 @@ class _MyHomePageState extends State<MyHomePage>
           ),
         ) // trailing comma makes auto-formatting nicer for build methods.
         );
+  }
+  _switchToCalendar(){
+    Navigator.of(context).push(
+      FadeRoute(
+        page: CalendarScreen(),
+      ),
+    );
   }
 }

@@ -23,6 +23,7 @@ dependencies:
   # Add the dependency for the Firebase Core Flutter SDK
   #firebase_core: ^0.4.0+9
   loading_indicator: ^1.1.0
+  table_calendar: ^2.1.0
 
 
   # Add the dependencies for any other Firebase products you want to use in your app
